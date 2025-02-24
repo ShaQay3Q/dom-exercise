@@ -1,16 +1,15 @@
-const startAddMovieBtn = document.querySelector("header button");
+const startAddMovieBtnElement = document.querySelector("header button");
 
-const backDropElement = document.getElementById("backdrop");
+const backdropElement = document.getElementById("backdrop");
 const addMovieModalElement = document.getElementById("add-modal");
 
-const cancelModalActionsBtnElement = document.querySelector(
-	".modal__actions .btn--passive"
-);
+const cancelAddMovieBtnElement =
+	addMovieModalElement.querySelector(".btn--passive");
 
-console.log(cancelModalActionsBtnElement);
+console.log(cancelAddMovieBtnElement);
 
 const toggleBackDrop = () => {
-	backDropElement.classList.toggle("visible");
+	backdropElement.classList.toggle("visible");
 };
 
 const toggleMovieModal = () => {
@@ -18,6 +17,14 @@ const toggleMovieModal = () => {
 	toggleBackDrop();
 };
 
-startAddMovieBtn.addEventListener("click", toggleMovieModal);
-cancelModalActionsBtnElement.addEventListener("click", toggleMovieModal);
-backDropElement.addEventListener("click", toggleMovieModal);
+const cancelAddMovie = () => {
+	toggleMovieModal();
+};
+
+const backdropClickHandler = () => {
+	toggleMovieModal();
+};
+
+startAddMovieBtnElement.addEventListener("click", toggleMovieModal);
+cancelAddMovieBtnElement.addEventListener("click", cancelAddMovie);
+backdropElement.addEventListener("click", backdropClickHandler);
