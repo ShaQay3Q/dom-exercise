@@ -6,7 +6,12 @@ const addMovieModalElement = document.getElementById("add-modal");
 const cancelAddMovieBtnElement =
 	addMovieModalElement.querySelector(".btn--passive");
 
-console.log(cancelAddMovieBtnElement);
+const confirmAddMovieBtnElement =
+	addMovieModalElement.querySelector(".btn--success");
+
+const inputElements = addMovieModalElement.querySelectorAll("input");
+
+const movies = [];
 
 const toggleBackDrop = () => {
 	backdropElement.classList.toggle("visible");
@@ -17,7 +22,37 @@ const toggleMovieModal = () => {
 	toggleBackDrop();
 };
 
-const cancelAddMovie = () => {
+const cancelAddMovieHandler = () => {
+	toggleMovieModal();
+};
+
+// gets the input data
+// validate the input data
+// add the movie obj into an array
+const addMovieHandler = () => {
+	const titleValue = inputElements[0].value;
+	const imgUrlValue = inputElements[1].value;
+	const ratingValue = inputElements[2].value;
+
+	if (
+		titleValue.trim() === "" ||
+		imgUrlValue.trim() === "" ||
+		ratingValue.trim() === "" ||
+		isNaN(parseInt(ratingValue)) ||
+		parseInt(ratingValue) < 1 ||
+		parseInt(ratingValue) > 5
+	) {
+		alert("Please enter valid values. (Rating is between 1 and 5.)");
+		return;
+	}
+
+	const newMovie = {
+		title: titleValue,
+		img: imgUrlValue,
+		rating: ratingValue,
+	};
+	movies.push(newMovie);
+	console.log(movies);
 	toggleMovieModal();
 };
 
@@ -26,5 +61,6 @@ const backdropClickHandler = () => {
 };
 
 startAddMovieBtnElement.addEventListener("click", toggleMovieModal);
-cancelAddMovieBtnElement.addEventListener("click", cancelAddMovie);
+cancelAddMovieBtnElement.addEventListener("click", cancelAddMovieHandler);
 backdropElement.addEventListener("click", backdropClickHandler);
+confirmAddMovieBtnElement.addEventListener("click", addMovieHandler);
