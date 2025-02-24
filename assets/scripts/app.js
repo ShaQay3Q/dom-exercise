@@ -26,6 +26,12 @@ const cancelAddMovieHandler = () => {
 	toggleMovieModal();
 };
 
+const clearThis = (target) => {
+	if (target.value != "") {
+		target.value = "";
+	}
+};
+
 // gets the input data
 // validate the input data
 // add the movie obj into an array
@@ -53,7 +59,12 @@ const addMovieHandler = () => {
 	};
 	movies.push(newMovie);
 	console.log(movies);
+
 	toggleMovieModal();
+
+	for (element of inputElements) {
+		clearThis(element);
+	}
 };
 
 const backdropClickHandler = () => {
