@@ -11,8 +11,8 @@ const confirmAddMovieBtnElement =
 
 const inputElements = addMovieModalElement.querySelectorAll("input");
 
-const mainBodyElement = document.querySelector("main");
 const sectionElement = document.getElementById("entry-text");
+
 const clearMovieInput = () => {
 	for (const element of inputElements) {
 		element.value = "";
@@ -20,6 +20,23 @@ const clearMovieInput = () => {
 };
 
 const movies = [];
+
+const renderNewMovieElement = (title, imgUrl, rating) => {
+	const newMovieElement = document.createElement("li");
+	newMovieElement.className = "movie-elemet";
+	newMovieElement.innerHTML = `
+    <div class="movie-element__image">
+        <img src="${imgUrl}" alt="${title}"/>
+    </div>
+    <div class="movie-element__info">
+        <h2>${title}</h2>
+        <p>${rating}/5 stars</p>
+    </div>
+    `;
+
+	const movieListElement = document.getElementById("movie-list");
+	movieListElement.appendChild(newMovieElement);
+};
 
 const updateUI = () => {
 	if (movies.length === 0) {
@@ -74,7 +91,7 @@ const addMovieHandler = () => {
 	toggleMovieModal();
 
 	clearMovieInput();
-
+	renderNewMovieElement(newMovie.title, newMovie.img, newMovie.rating);
 	updateUI();
 };
 
