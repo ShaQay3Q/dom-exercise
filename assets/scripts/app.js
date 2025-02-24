@@ -11,6 +11,8 @@ const confirmAddMovieBtnElement =
 
 const inputElements = addMovieModalElement.querySelectorAll("input");
 
+const mainBodyElement = document.querySelector("main");
+const sectionElement = document.getElementById("entry-text");
 const clearMovieInput = () => {
 	for (const element of inputElements) {
 		element.value = "";
@@ -18,6 +20,14 @@ const clearMovieInput = () => {
 };
 
 const movies = [];
+
+const updateUI = () => {
+	if (movies.length === 0) {
+		sectionElement.style.display = "block";
+	} else {
+		sectionElement.style.display = "none";
+	}
+};
 
 const toggleBackDrop = () => {
 	backdropElement.classList.toggle("visible");
@@ -64,6 +74,8 @@ const addMovieHandler = () => {
 	toggleMovieModal();
 
 	clearMovieInput();
+
+	updateUI();
 };
 
 const backdropClickHandler = () => {
