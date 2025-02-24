@@ -11,8 +11,8 @@ const confirmAddMovieBtnElement =
 
 const inputElements = addMovieModalElement.querySelectorAll("input");
 
-const clearMovieInput = (elements) => {
-	for (element of elements) {
+const clearMovieInput = () => {
+	for (const element of inputElements) {
 		element.value = "";
 	}
 };
@@ -30,7 +30,7 @@ const toggleMovieModal = () => {
 
 const cancelAddMovieHandler = () => {
 	toggleMovieModal();
-	clearMovieInput(inputElements);
+	clearMovieInput();
 };
 
 // gets the input data
@@ -63,7 +63,7 @@ const addMovieHandler = () => {
 
 	toggleMovieModal();
 
-	clearMovieInput(inputElements);
+	clearMovieInput();
 };
 
 const backdropClickHandler = () => {
