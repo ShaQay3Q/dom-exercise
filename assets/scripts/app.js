@@ -1,17 +1,13 @@
 const startAddMovieBtnElement = document.querySelector("header button");
-
 const backdropElement = document.getElementById("backdrop");
 const addMovieModalElement = document.getElementById("add-modal");
-
 const cancelAddMovieBtnElement =
 	addMovieModalElement.querySelector(".btn--passive");
-
 const confirmAddMovieBtnElement =
 	addMovieModalElement.querySelector(".btn--success");
-
 const inputElements = addMovieModalElement.querySelectorAll("input");
-
 const sectionElement = document.getElementById("entry-text");
+const deleteMovieModal = document.getElementById("delete-modal");
 
 const clearMovieInput = () => {
 	for (const element of inputElements) {
@@ -56,10 +52,14 @@ const deleteMovie = (movieId) => {
 	movieListElement.removeChild(movieListElement.children[movieIndex]); // Old way
 };
 
+const closeMovieDeletionModal = () => {
+	closeBackdrop();
+	deleteMovieModal.classList.remove("visible");
+};
+
 const deleteMovieHandler = (movieId) => {
-	const deleteMovieModal = document.getElementById("delete-modal");
 	deleteMovieModal.classList.add("visible"); // toggle doesn't make sense
-	toggleBackDrop();
+	showBackdrop();
 	// deleteMovie(movieId);
 };
 
@@ -159,6 +159,7 @@ const addMovieHandler = () => {
 
 const backdropClickHandler = () => {
 	closeMovideModal();
+	closeMovieDeletionModal();
 };
 
 startAddMovieBtnElement.addEventListener("click", showMovieModal);
