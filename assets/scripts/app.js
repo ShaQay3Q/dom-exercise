@@ -27,10 +27,12 @@ const deletMovieHandler = (movieId) => {
 	// 		console.log(movie);
 	// 	}
 	// }
-	const selectedMovie = movies.filter((movie) => {
-		return movie.id === movieId;
-	});
+	const selectedMovie = movies.filter((movie) => movie.id === movieId);
 	console.log(selectedMovie);
+
+	const updatedMovies = movies.filter((movie) => movie.id !== movieId);
+
+	console.log(updatedMovies);
 };
 
 const renderNewMovieElement = (id, title, imgUrl, rating) => {
