@@ -123,8 +123,17 @@ const startsDeleteMovieHandler = (movieId) => {
 	showBackdrop();
 
 	const cancelDeletionBtn = deleteMovieModal.querySelector(".btn--passive");
-	const confirmDeletionBtn = deleteMovieModal.querySelector(".btn--danger");
+	let confirmDeletionBtn = deleteMovieModal.querySelector(".btn--danger");
 
+	// Way around removing eventListiner were .bind() is being used
+	const newConfirmDeletionBtn = confirmDeletionBtn.cloneNode(true);
+	confirmDeletionBtn.replaceWith(newConfirmDeletionBtn);
+	// swap
+	confirmDeletionBtn = deleteMovieModal.querySelector(".btn--danger");
+
+	// Remove previous event listeners to prevent multiple deletions
+	//! cannot be done for functions.bind => new object
+	cancelDeletionBtn.removeEventListener("click", closeMovieDeletionModal);
 	cancelDeletionBtn.addEventListener("click", closeMovieDeletionModal);
 
 	confirmDeletionBtn.addEventListener(
