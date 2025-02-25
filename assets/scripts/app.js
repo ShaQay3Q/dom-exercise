@@ -60,6 +60,11 @@ const closeMovieDeletionModal = () => {
 const deleteMovieHandler = (movieId) => {
 	deleteMovieModal.classList.add("visible"); // toggle doesn't make sense
 	showBackdrop();
+
+	const cancelDeletionBtn = deleteMovieModal.querySelector(".btn--passive");
+	const confirmDeletionBtn = deleteMovieModal.querySelector(".btn--danger");
+
+	cancelDeletionBtn.addEventListener("click", closeMovieDeletionModal);
 	// deleteMovie(movieId);
 };
 
@@ -90,9 +95,9 @@ const updateUI = () => {
 	}
 };
 //! addBackdrop
-const toggleBackDrop = () => {
-	backdropElement.classList.toggle("visible");
-};
+// const toggleBackDrop = () => {
+// 	backdropElement.classList.toggle("visible");
+// };
 
 const showBackdrop = () => {
 	backdropElement.classList.add("visible");
