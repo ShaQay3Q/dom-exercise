@@ -38,18 +38,28 @@ const deleteMovie = (movieId) => {
 	// movies.splice(movieIndex, 1); // number of items we want to remove
 
 	const movieIndex = movies.findIndex((movie) => movie.id === movieId);
-	console.log(movies[movieIndex]);
 
 	if (movieIndex !== -1) {
 		movies.splice(movieIndex, 1); // Modifies array by removing the item based on it's index
 	}
-	console.log(movies);
 
-	const movieListElement = document.getElementById("movie-list");
+	// const movieListElement = document.getElementById("movie-list");
 
-	//! Two ways of removing an Element (Child)
+	// // if (movieListElement && movieListElement.children[movieIndex]) {
+	// //! Two ways of removing an Element (Child)
 	// movieListElement.children[movieIndex].remove(); // Newer method
-	movieListElement.removeChild(movieListElement.children[movieIndex]); // Old way
+	// // movieListElement.removeChild(movieListElement.children[movieIndex]); // Old way
+	// // }
+
+	// Re-render the entire movie list
+	const movieListElement = document.getElementById("movie-list");
+	movieListElement.innerHTML = ""; // Clear the current movie list
+	movies.forEach((movie) => {
+		renderNewMovieElement(movie.id, movie.title, movie.img, movie.rating); // Re-render all movies
+	});
+
+	closeMovieDeletionModal();
+	updateUI();
 };
 
 const closeMovieDeletionModal = () => {
@@ -65,7 +75,8 @@ const deleteMovieHandler = (movieId) => {
 	const confirmDeletionBtn = deleteMovieModal.querySelector(".btn--danger");
 
 	cancelDeletionBtn.addEventListener("click", closeMovieDeletionModal);
-	// deleteMovie(movieId);
+
+	confirmDeletionBtn.addEventListener("click", deleteMovie.bind(null, movieId));
 };
 
 const renderNewMovieElement = (id, title, imgUrl, rating) => {
@@ -107,7 +118,7 @@ const closeBackdrop = () => {
 	backdropElement.classList.remove("visible");
 };
 
-const closeMovideModal = () => {
+const closeMovieModal = () => {
 	addMovieModalElement.classList.remove("visible");
 	closeBackdrop();
 };
@@ -117,7 +128,7 @@ const showMovieModal = () => {
 };
 
 const cancelAddMovieHandler = () => {
-	closeMovideModal();
+	closeMovieModal();
 	clearMovieInput();
 };
 
@@ -150,7 +161,7 @@ const addMovieHandler = () => {
 	movies.push(newMovie);
 	console.log(movies);
 
-	closeMovideModal();
+	closeMovieModal();
 
 	clearMovieInput();
 	renderNewMovieElement(
@@ -163,7 +174,7 @@ const addMovieHandler = () => {
 };
 
 const backdropClickHandler = () => {
-	closeMovideModal();
+	closeMovieModal();
 	closeMovieDeletionModal();
 };
 
