@@ -22,17 +22,33 @@ const clearMovieInput = () => {
 const movies = [];
 
 const deletMovieHandler = (movieId) => {
+	//! Leave it, because movies is a const not let
+	// const selectedMovie = movies.filter((movie) => movie.id === movieId);
+	// console.log(selectedMovie);
+
+	// const updatedMovies = movies.filter((movie) => movie.id !== movieId);
+	// console.log(updatedMovies);
+	// movies = [...updatedMovies];
+	// console.log(movies);
+
+	//! ALternative
+	// let movieIndex = 0;
 	// for (const movie of movies) {
 	// 	if (movie.id === movieId) {
-	// 		console.log(movie);
+	// 		break;
 	// 	}
+	//	movieIndex++
 	// }
-	const selectedMovie = movies.filter((movie) => movie.id === movieId);
-	console.log(selectedMovie);
+	// movies.splice(movieIndex, 1); // number of items we want to remove
+	// 	const movieListElement = document.getElementById("movie-list");
 
-	const updatedMovies = movies.filter((movie) => movie.id !== movieId);
+	const movieIndex = movies.findIndex((movie) => movie.id === movieId);
+	console.log(movies[movieIndex]);
 
-	console.log(updatedMovies);
+	if (movieIndex !== -1) {
+		movies.splice(movieIndex, 1); // Modifies array by removing the item based on it's index
+	}
+	console.log(movies);
 };
 
 const renderNewMovieElement = (id, title, imgUrl, rating) => {
