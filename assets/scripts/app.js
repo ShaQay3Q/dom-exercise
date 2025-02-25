@@ -40,7 +40,6 @@ const deletMovieHandler = (movieId) => {
 	//	movieIndex++
 	// }
 	// movies.splice(movieIndex, 1); // number of items we want to remove
-	// 	const movieListElement = document.getElementById("movie-list");
 
 	const movieIndex = movies.findIndex((movie) => movie.id === movieId);
 	console.log(movies[movieIndex]);
@@ -49,6 +48,12 @@ const deletMovieHandler = (movieId) => {
 		movies.splice(movieIndex, 1); // Modifies array by removing the item based on it's index
 	}
 	console.log(movies);
+
+	const movieListElement = document.getElementById("movie-list");
+
+	//! Two ways of removing an Element (Child)
+	// movieListElement.children[movieIndex].remove(); // Newer method
+	movieListElement.removeChild(movieListElement.children[movieIndex]); // Old way
 };
 
 const renderNewMovieElement = (id, title, imgUrl, rating) => {
