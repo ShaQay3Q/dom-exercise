@@ -21,7 +21,7 @@ const clearMovieInput = () => {
 
 const movies = [];
 
-const deletMovieHandler = (movieId) => {
+const deleteMovie = (movieId) => {
 	//! Leave it, because movies is a const not let
 	// const selectedMovie = movies.filter((movie) => movie.id === movieId);
 	// console.log(selectedMovie);
@@ -56,6 +56,13 @@ const deletMovieHandler = (movieId) => {
 	movieListElement.removeChild(movieListElement.children[movieIndex]); // Old way
 };
 
+const deleteMovieHandler = (movieId) => {
+	const deleteMovieModal = document.getElementById("delete-modal");
+	deleteMovieModal.classList.add("visible"); // toggle doesn't make sense
+	toggleBackDrop();
+	// deleteMovie(movieId);
+};
+
 const renderNewMovieElement = (id, title, imgUrl, rating) => {
 	const newMovieElement = document.createElement("li");
 	newMovieElement.className = "movie-element";
@@ -69,7 +76,7 @@ const renderNewMovieElement = (id, title, imgUrl, rating) => {
     </div>
     `;
 
-	newMovieElement.addEventListener("click", deletMovieHandler.bind(null, id));
+	newMovieElement.addEventListener("click", deleteMovieHandler.bind(null, id));
 
 	const movieListElement = document.getElementById("movie-list");
 	movieListElement.appendChild(newMovieElement);
@@ -82,18 +89,30 @@ const updateUI = () => {
 		sectionElement.style.display = "none";
 	}
 };
-
+//! addBackdrop
 const toggleBackDrop = () => {
 	backdropElement.classList.toggle("visible");
 };
 
-const toggleMovieModal = () => {
-	addMovieModalElement.classList.toggle("visible");
-	toggleBackDrop();
+const showBackdrop = () => {
+	backdropElement.classList.add("visible");
+};
+
+const closeBackdrop = () => {
+	backdropElement.classList.remove("visible");
+};
+
+const closeMovideModal = () => {
+	addMovieModalElement.classList.remove("visible");
+	closeBackdrop();
+};
+const showMovieModal = () => {
+	addMovieModalElement.classList.add("visible");
+	showBackdrop();
 };
 
 const cancelAddMovieHandler = () => {
-	toggleMovieModal();
+	closeMovideModal();
 	clearMovieInput();
 };
 
@@ -126,7 +145,7 @@ const addMovieHandler = () => {
 	movies.push(newMovie);
 	console.log(movies);
 
-	toggleMovieModal();
+	closeMovideModal();
 
 	clearMovieInput();
 	renderNewMovieElement(
@@ -139,10 +158,10 @@ const addMovieHandler = () => {
 };
 
 const backdropClickHandler = () => {
-	toggleMovieModal();
+	closeMovideModal();
 };
 
-startAddMovieBtnElement.addEventListener("click", toggleMovieModal);
+startAddMovieBtnElement.addEventListener("click", showMovieModal);
 cancelAddMovieBtnElement.addEventListener("click", cancelAddMovieHandler);
 backdropElement.addEventListener("click", backdropClickHandler);
 confirmAddMovieBtnElement.addEventListener("click", addMovieHandler);
