@@ -21,9 +21,21 @@ const clearMovieInput = () => {
 
 const movies = [];
 
-const renderNewMovieElement = (title, imgUrl, rating) => {
+const deletMovieHandler = (movieId) => {
+	// for (const movie of movies) {
+	// 	if (movie.id === movieId) {
+	// 		console.log(movie);
+	// 	}
+	// }
+	const selectedMovie = movies.filter((movie) => {
+		return movie.id === movieId;
+	});
+	console.log(selectedMovie);
+};
+
+const renderNewMovieElement = (id, title, imgUrl, rating) => {
 	const newMovieElement = document.createElement("li");
-	newMovieElement.className = "movie-elemet";
+	newMovieElement.className = "movie-element";
 	newMovieElement.innerHTML = `
     <div class="movie-element__image">
         <img src="${imgUrl}" alt="${title}"/>
@@ -33,6 +45,8 @@ const renderNewMovieElement = (title, imgUrl, rating) => {
         <p>${rating}/5 stars</p>
     </div>
     `;
+
+	newMovieElement.addEventListener("click", deletMovieHandler.bind(null, id));
 
 	const movieListElement = document.getElementById("movie-list");
 	movieListElement.appendChild(newMovieElement);
@@ -81,6 +95,7 @@ const addMovieHandler = () => {
 	}
 
 	const newMovie = {
+		id: Math.random().toString(),
 		title: titleValue,
 		img: imgUrlValue,
 		rating: ratingValue,
@@ -91,7 +106,12 @@ const addMovieHandler = () => {
 	toggleMovieModal();
 
 	clearMovieInput();
-	renderNewMovieElement(newMovie.title, newMovie.img, newMovie.rating);
+	renderNewMovieElement(
+		newMovie.id,
+		newMovie.title,
+		newMovie.img,
+		newMovie.rating
+	);
 	updateUI();
 };
 
